@@ -10,7 +10,7 @@ Starting from a blank folder
 npx create-react-app .
 ~~~
 ~~~
-npm install watch axios react-router-dom react-bootstrap boostrap
+npm install watch axios react-router-dom react-bootstrap boostrap @types/prop-types prop-types
 ~~~
 
 ## Create Django Backend

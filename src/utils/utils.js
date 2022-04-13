@@ -5,6 +5,7 @@ const myexports = {}
 // This will be edited in the .env file in the root folder
 // use your local host in development, leave the value blank on the file residing on the server
 const urlPrefix = process.env.REACT_APP_URL_PREFIX
+let token = ""
 
 myexports.getCSRFToken = () => {
     let csrfToken
@@ -22,7 +23,7 @@ myexports.getCSRFToken = () => {
 }
 
 const apiGet = async (url, params = null) => {
-    console.log(url, params)  // so we can check which url was called in production if things go wonky
+    console.log(urlPrefix + url, params)  // so we can check which url was called in production if things go wonky
     axios.defaults.headers.common['X-CSRFToken'] = myexports.getCSRFToken()
     if (params)
         return await axios.get(urlPrefix + url, params)
@@ -30,11 +31,23 @@ const apiGet = async (url, params = null) => {
 }
 
 const apiPost = async (url, params = null) => {
-    console.log(url, params) // so we can check which url was called in production if things go wonky
+    console.log(urlPrefix + url, params) // so we can check which url was called in production if things go wonky
     axios.defaults.headers.common['X-CSRFToken'] = myexports.getCSRFToken()
     if (params)
         return await axios.post(urlPrefix + url, params)
     return await axios.post(urlPrefix + url)
+}
+
+myexports.logOut = async () => await apiPost("/v1/user/logout/")
+
+myexports.logIn = async (params) => {
+    return await apiPost("/v1/user/login/", params)
+        .then((res) => res.data.user)
+}
+
+myexports.whoAmI = async () => {
+    return await apiGet("/v1/user/whoami/")
+        .then((res) => res.data)
 }
 
 export default myexports;
