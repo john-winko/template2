@@ -1,29 +1,35 @@
 import {Button, Form, FormControl} from "react-bootstrap";
+import {logoutUser, loginUser} from "../utils/auth";
+import {whoAmI} from "../utils/utils";
 
 function Login({user, setUser}) {
 
-    const logout = async () => {
-        // await utils.logOut()
+    const logout = () => {
+        logoutUser()
         setUser(null)
     }
 
+    const ping = async () => {
+        let res = await whoAmI()
+        console.log("ping", res)
+    }
 
     const formSubmit = (evt) => {
         evt.preventDefault()
         const username = evt.target.elements.username.value
         const password = evt.target.elements.password.value
+        loginUser(username, password)
+            .then(() => setUser(username))
+            .catch((err)=>console.log("Error login", err))
     }
-    // axios.post('http://localhost:8000/v1/user/login/', params
-    // ).then(res => {
-    //     console.log("logged in", res)
-    // }).catch(res => console.log("catch", res))
 
 
     const ShowLogout = () => {
         return (
             <>
-                <span>Welcome {user.username}</span>
+                <span>Welcome {user}</span>
                 <Button className="ms-2" variant="outline-success" onClick={logout}>Logout</Button>
+                <Button onClick={ping}>Whois</Button>
             </>
         )
     }
@@ -50,7 +56,7 @@ function Login({user, setUser}) {
         )
     }
 
-    return (<>{user ? <ShowLogout/> : <ShowLogin/>}</>)
+    return user ? <ShowLogout/> : <ShowLogin/>
 }
 
 export default Login

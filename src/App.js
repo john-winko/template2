@@ -3,11 +3,16 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {useEffect, useState} from "react";
 import HomePage from "./pages/HomePage";
 import AppNav from "./components/AppNav";
-import utils from "./utils/utils";
+import {whoAmI} from "./utils/utils";
 
 function App() {
 
     const [user, setUser] = useState(null)
+
+    useEffect(()=>{
+        if (user)
+            whoAmI().then((res)=>console.log(res))
+    }, [user])
 
     return (
         <div className="App">
