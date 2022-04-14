@@ -5,7 +5,6 @@ from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
-from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 def send_the_homepage(request):
@@ -42,18 +41,3 @@ class UserViewSet(ModelViewSet):
         if request.user.is_authenticated:
             return JsonResponse({"user": self.serializer_class(request.user).data})
         return JsonResponse({"user": None})
-
-
-@ensure_csrf_cookie
-def set_csrf_token(request):
-    return JsonResponse({"details": "CSRF cookie set"})
-
-
-from rest_framework.authentication import SessionAuthentication
-from rest_framework.views import APIView
-from rest_framework.response import Response
-
-class CheckAuth(APIView):
-    authentication_classes = [SessionAuthentication]
-    def get(self, request):
-        return Response({'detail': 'is authenticated'})

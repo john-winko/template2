@@ -1,5 +1,5 @@
 import {Button, Form, FormControl} from "react-bootstrap";
-import axios from '../utils/axiosConfig'
+
 function Login({user, setUser}) {
 
     const logout = async () => {
@@ -7,22 +7,17 @@ function Login({user, setUser}) {
         setUser(null)
     }
 
-    const setCSRF = () => {
-        axios.get('http://localhost:8000/api/csrf/').then(res => console.log(res))
-    }
 
     const formSubmit = (evt) => {
         evt.preventDefault()
-        setCSRF()
-        const params = {
-            "username": evt.target.elements.username.value,
-            "password": evt.target.elements.password.value
-        }
-        // axios.post('http://localhost:8000/v1/user/login/', params
-        // ).then(res => {
-        //     console.log("logged in", res)
-        // }).catch(res => console.log("catch", res))
+        const username = evt.target.elements.username.value
+        const password = evt.target.elements.password.value
     }
+    // axios.post('http://localhost:8000/v1/user/login/', params
+    // ).then(res => {
+    //     console.log("logged in", res)
+    // }).catch(res => console.log("catch", res))
+
 
     const ShowLogout = () => {
         return (
