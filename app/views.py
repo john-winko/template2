@@ -21,3 +21,4 @@ class UserViewSet(ModelViewSet):
         if request.user.is_authenticated:
             return JsonResponse({"user": "d"})
         return JsonResponse({"user": None})
+

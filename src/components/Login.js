@@ -1,12 +1,16 @@
 import {Button, Form, FormControl} from "react-bootstrap";
 import {logoutUser, loginUser} from "../utils/auth";
-import {whoAmI} from "../utils/utils";
+import {byebye, whoAmI} from "../utils/utils";
 
 function Login({user, setUser}) {
 
     const logout = () => {
-        logoutUser()
-        setUser(null)
+        byebye().then(()=>{
+            console.log("inside bye")
+            logoutUser()
+            setUser(null)
+        })
+
     }
 
     const ping = async () => {

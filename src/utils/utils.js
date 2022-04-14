@@ -5,4 +5,8 @@ const whoAmI = async () => {
         .then((res) => res.data)
 }
 
-export {whoAmI};
+const byebye = async () => {
+    return await authRequest.post('/byebye/')
+}
+
+export {whoAmI, byebye};
