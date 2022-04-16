@@ -37,6 +37,11 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ~~~
 
+#### Delete the db.sqlite3 database that was mistakingly tracked (I'm too lazy to fix the commit history)
+~~~
+rm db.sqlite3
+~~~
+
 ~~~
 python manage.py migrate
 ~~~
