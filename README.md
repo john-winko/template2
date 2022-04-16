@@ -30,7 +30,7 @@ python -m venv .venv
 
 #### (Mac/Linux) Go into virtual environment
 ~~~
-source venv/bin/activate
+source .venv/bin/activate
 ~~~
 
 ~~~
